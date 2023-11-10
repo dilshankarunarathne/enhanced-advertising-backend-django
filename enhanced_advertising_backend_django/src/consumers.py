@@ -4,6 +4,7 @@ import base64
 
 from channels.generic.websocket import AsyncWebsocketConsumer
 
+
 class VideoStreamConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         await self.accept()
