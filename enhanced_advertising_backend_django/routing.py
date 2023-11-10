@@ -1,10 +1,7 @@
-from channels.routing import ProtocolTypeRouter, URLRouter
-from django.urls import path
+from django.urls import re_path
 
-from enhanced_advertising_backend_django.consumers import VideoConsumer
+from . import consumers
 
-application = ProtocolTypeRouter({
-    "websocket": URLRouter([
-        path("ws/video/", VideoConsumer.as_asgi()),
-    ]),
-})
+websocket_urlpatterns = [
+    re_path(r'ws/video_stream/$', consumers.VideoStreamConsumer.as_asgi()),
+]
