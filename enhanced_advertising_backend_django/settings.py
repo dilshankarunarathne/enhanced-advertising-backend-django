@@ -70,7 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'enhanced_advertising_backend_django.wsgi.application'
-
+ASGI_APPLICATION = 'enhanced_advertising_backend_django.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
