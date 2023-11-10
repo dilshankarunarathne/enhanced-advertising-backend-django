@@ -40,5 +40,5 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
 def model_processing(frame):
     # Implement your OpenCV model processing logic here
     # For example, you can apply object detection, facial recognition, etc.
-    # Make sure to return the processed frame
+    # TODO Make sure to return the processed frame
     return frame
