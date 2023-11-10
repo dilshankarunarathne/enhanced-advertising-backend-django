@@ -25,7 +25,7 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
         frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
         # Perform image processing with your OpenCV model
-        processed_frame = your_opencv_model_processing(frame)
+        processed_frame = model_processing(frame)
 
         # Encode the processed frame as JPEG
         _, encoded_frame = cv2.imencode('.jpg', processed_frame)
@@ -37,7 +37,7 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({'frame': base64_encoded_frame}))
 
 
-def your_opencv_model_processing(frame):
+def model_processing(frame):
     # Implement your OpenCV model processing logic here
     # For example, you can apply object detection, facial recognition, etc.
     # Make sure to return the processed frame
