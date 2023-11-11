@@ -5,6 +5,9 @@ import cv2
 import numpy as np
 
 from channels.generic.websocket import AsyncWebsocketConsumer
+from django.conf import settings
+
+default_channel_layer = settings.DEFAULT_CHANNEL_LAYER
 
 
 class VideoStreamConsumer(AsyncWebsocketConsumer):
