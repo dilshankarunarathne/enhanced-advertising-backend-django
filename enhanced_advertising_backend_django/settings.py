@@ -35,6 +35,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
+DEFAULT_CHANNEL_LAYER = "default"
+
 ROOT_URLCONF = 'enhanced_advertising_backend_django.urls'
 
 TEMPLATES = [
