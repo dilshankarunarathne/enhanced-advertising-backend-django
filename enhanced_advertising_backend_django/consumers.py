@@ -21,7 +21,7 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
         processed_frame = model_processing(frame)
         _, encoded_frame = cv2.imencode('.jpg', processed_frame)
         base64_encoded_frame = base64.b64encode(encoded_frame.tobytes()).decode('utf-8')
-        model_output = your_model_function(processed_frame)  # Replace with your actual model function
+        model_output = model_processing(processed_frame)  
         await self.send(text_data=json.dumps({'frame': base64_encoded_frame, 'model_output': model_output}))
 
 
