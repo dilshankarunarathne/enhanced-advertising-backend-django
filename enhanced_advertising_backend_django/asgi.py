@@ -9,9 +9,9 @@ from enhanced_advertising_backend_django.routing import websocket_urlpatterns
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'enhanced_advertising_backend_django.settings')
 
-
 application = ProtocolTypeRouter({
-    "websocket": URLRouter(
-        websocket_urlpatterns
-    ),
+    "http": get_asgi_application(),
+    "websocket": URLRouter([
+        path('ws/video_stream/', consumers.VideoStreamConsumer.as_asgi()),
+    ]),
 })
