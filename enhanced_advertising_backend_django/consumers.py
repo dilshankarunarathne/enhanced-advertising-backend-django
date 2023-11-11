@@ -24,7 +24,7 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
         # Decode the image
         frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-        # Perform image processing with your OpenCV model
+        # TODO Perform image processing with your OpenCV model
         processed_frame = model_processing(frame)
 
         # Encode the processed frame as JPEG
