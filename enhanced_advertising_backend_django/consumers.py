@@ -15,25 +15,12 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
         pass
 
     async def receive(self, text_data):
-        # Decode the base64-encoded video frame
         frame_data = base64.b64decode(text_data)
-
-        # Convert the frame data to a NumPy array
         nparr = np.frombuffer(frame_data, np.uint8)
-
-        # Decode the image
         frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
-        # TODO Perform image processing with your OpenCV model
         processed_frame = model_processing(frame)
-
-        # Encode the processed frame as JPEG
         _, encoded_frame = cv2.imencode('.jpg', processed_frame)
-
-        # Convert the encoded frame to base64
         base64_encoded_frame = base64.b64encode(encoded_frame.tobytes()).decode('utf-8')
-
-        # Send the processed frame back to the client
         await self.send(text_data=json.dumps({'frame': base64_encoded_frame}))
 
 
