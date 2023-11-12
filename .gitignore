@@ -62,3 +62,7 @@ target/
 
 /gz/
 .github/workflows/jekyll-gh-pages.yml
+*.jpg
+*.joblib
+*.caffemodel
+*.prototxt
