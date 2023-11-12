@@ -19,8 +19,7 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
         nparr = np.frombuffer(frame_data, np.uint8)
         frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-        # predict age & gender
-        age, gender = classifier.predict_age_and_gender(img)
+
 
         model_output = model_processing(frame)
         await self.send(text_data=json.dumps({'model_output': model_output}))
@@ -28,6 +27,9 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
 
 
 def model_processing(frame):
-    # TODO: Run the frame through your model and return the output
-    # For now, just return a placeholder string
-    return "Placeholder model output"
+    # predict age & gender
+    age, gender = classifier.predict_age_and_gender(img)
+
+    recommended_interest = predict_interest(age, gender)
+
+    ad = get_ad_img_url(recommended_interest)
