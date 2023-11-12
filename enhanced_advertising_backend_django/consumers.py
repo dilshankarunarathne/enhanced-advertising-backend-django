@@ -30,7 +30,7 @@ def model_processing(frame):
     # predict age & gender
     age, gender = classifier.predict_age_and_gender(img)
 
-
+    # predict interest
     recommended_interest = predict_interest(age, gender)
 
     ad = get_ad_img_url(recommended_interest)
