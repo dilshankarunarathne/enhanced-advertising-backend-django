@@ -26,7 +26,7 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
 
 def model_processing(frame):
     # predict age & gender
-    age, gender = classifier.predict_age_and_gender(img)
+    age, gender = classifier.predict_age_and_gender(frame)
 
     # predict interest
     recommended_interest = predict_interest(age, gender)
