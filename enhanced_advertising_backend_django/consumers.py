@@ -22,7 +22,6 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({model_output}))
 
 
-
 def model_processing(frame):
     # predict age & gender
     age, gender = classifier.predict_age_and_gender(img)
