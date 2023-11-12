@@ -18,6 +18,9 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
         frame_data = base64.b64decode(text_data)
         nparr = np.frombuffer(frame_data, np.uint8)
         frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+        
+
         model_output = model_processing(frame)
         await self.send(text_data=json.dumps({'model_output': model_output}))
 
