@@ -6,6 +6,7 @@ import numpy as np
 
 from channels.generic.websocket import AsyncWebsocketConsumer
 
+from enhanced_advertising_backend_django import classifier
 from enhanced_advertising_backend_django.ad_engine.main import get_ad_img_url
 from enhanced_advertising_backend_django.iengine.recommender import predict_interest
 
