@@ -18,15 +18,12 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
         frame_data = base64.b64decode(text_data)
         nparr = np.frombuffer(frame_data, np.uint8)
         frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-        processed_frame = model_processing(frame)
-        _, encoded_frame = cv2.imencode('.jpg', processed_frame)
-        base64_encoded_frame = base64.b64encode(encoded_frame.tobytes()).decode('utf-8')
-        model_output = model_processing(processed_frame)  
-        await self.send(text_data=json.dumps({'frame': base64_encoded_frame, 'model_output': model_output}))
+        model_output = model_processing(frame)
+        await self.send(text_data=json.dumps({'model_output': model_output}))
+
 
 
 def model_processing(frame):
-    # Implement your OpenCV model processing logic here
-    # For example, you can apply object detection, facial recognition, etc.
-    # TODO Make sure to return the processed frame
-    return "data comes in..."
+    # TODO: Run the frame through your model and return the output
+    # For now, just return a placeholder string
+    return "Placeholder model output"
