@@ -33,7 +33,7 @@ def model_processing(frame):
     # predict interest
     recommended_interest = predict_interest(age, gender)
 
-
+    # get ad
     ad = get_ad_img_url(recommended_interest)
 
     return age, gender, recommended_interest, ad
