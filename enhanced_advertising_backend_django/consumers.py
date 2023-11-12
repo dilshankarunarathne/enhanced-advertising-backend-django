@@ -6,6 +6,8 @@ import numpy as np
 
 from channels.generic.websocket import AsyncWebsocketConsumer
 
+from enhanced_advertising_backend_django import classifier
+
 
 class VideoStreamConsumer(AsyncWebsocketConsumer):
     async def connect(self):
