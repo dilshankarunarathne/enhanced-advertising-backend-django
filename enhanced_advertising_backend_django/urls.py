@@ -6,7 +6,7 @@ from .views import post_view
 
 urlpatterns = [
     path('ws/video_stream/', views.video_stream, name='video_stream'),
-    path('api/test', post_view),
+    path('api/report', post_view),
 ]
 
 websocket_urlpatterns = [

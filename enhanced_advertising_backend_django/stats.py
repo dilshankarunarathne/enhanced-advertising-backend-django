@@ -14,6 +14,13 @@ def populate():
     return statistics
 
 
+def populate_with_month(month):
+    statistics = get_all_stats(month)
+    print(dict(statistics)['male_4_12'])
+
+    return statistics
+
+
 def update(age_group, gender):
     stat = populate()
 
