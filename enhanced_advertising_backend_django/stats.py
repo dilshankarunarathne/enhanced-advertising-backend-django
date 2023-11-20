@@ -22,6 +22,8 @@ def populate_with_month(month):
 
 
 def update(age_group, gender):
+    print("stat update called for ", age_group, " ", gender)
+
     stat = populate()
 
     print(stat)
