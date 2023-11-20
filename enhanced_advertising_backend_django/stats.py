@@ -1,24 +1,5 @@
 from enhanced_advertising_backend_django.mongo import get_all_stats, put_stat
 
-male_4_12 = 0
-male_13_26 = 0
-male_27_40 = 0
-male_above_40 = 0
-
-female_4_12 = 0
-female_13_26 = 0
-female_27_40 = 0
-female_above_40 = 0
-
-total_4_12 = 0
-total_13_26 = 0
-total_27_40 = 0
-total_above_40 = 0
-
-total_male = 0
-total_female = 0
-total = 0
-
 
 def populate():
     statistics = get_all_stats()
