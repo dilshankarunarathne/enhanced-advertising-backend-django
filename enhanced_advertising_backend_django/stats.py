@@ -8,7 +8,6 @@ def get_month():
 
 
 def populate():
-
     statistics = get_all_stats(get_month())
     print(dict(statistics)['male_4_12'])
 
