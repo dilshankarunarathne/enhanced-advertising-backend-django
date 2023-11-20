@@ -11,6 +11,27 @@ from enhanced_advertising_backend_django import classifier
 from enhanced_advertising_backend_django.ad_engine.main import get_ad_img_url
 from enhanced_advertising_backend_django.iengine.recommender import predict_interest
 
+from channels.generic.http import AsyncHttpConsumer, AsyncConsumer
+import json
+
+
+
+class PostConsumer(AsyncConsumer):
+    async def websocket_connect(self, event):
+        await self.send({
+            'type': 'websocket.accept'
+        })
+
+    async def websocket_receive(self, event):
+        data = json.loads(event['text'])
+        # process data
+        # return response
+        await self.send({
+            'type': 'websocket.send',
+            'text': json.dumps({'message': 'Data received'})
+        })
+
+
 
 class VideoStreamConsumer(AsyncWebsocketConsumer):
     async def connect(self):
