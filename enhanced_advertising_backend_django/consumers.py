@@ -14,6 +14,7 @@ from enhanced_advertising_backend_django.iengine.recommender import predict_inte
 from channels.generic.http import AsyncHttpConsumer, AsyncConsumer
 import json
 
+from enhanced_advertising_backend_django.stats import update
 
 
 class PostConsumer(AsyncConsumer):
@@ -30,7 +31,6 @@ class PostConsumer(AsyncConsumer):
             'type': 'websocket.send',
             'text': json.dumps({'message': 'Data received'})
         })
-
 
 
 class VideoStreamConsumer(AsyncWebsocketConsumer):
@@ -51,8 +51,11 @@ class VideoStreamConsumer(AsyncWebsocketConsumer):
         else:
             print("Image decoded successfully")
         model_output = model_processing(frame)
-        await self.send(text_data=json.dumps({"model_output": model_output}))
 
+        # update stats
+        update(model_output[0], model_output[1])
+
+        await self.send(text_data=json.dumps({"model_output": model_output}))
 
 
 def check_base64_image(base64_string, output_file):

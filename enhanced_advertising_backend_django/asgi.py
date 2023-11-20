@@ -13,6 +13,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'enhanced_advertising_backend_dj
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     "websocket": URLRouter([
-        path('ws/video_stream/', consumers.VideoStreamConsumer),
+        path('ws/video_stream/', consumers.VideoStreamConsumer.as_asgi()),
     ]),
 })

@@ -11,5 +11,4 @@ urlpatterns = [
 
 websocket_urlpatterns = [
     re_path(r'ws/video_stream/$', consumers.VideoStreamConsumer),
-    # re_path(r'ws/post-endpoint/$', consumers.PostConsumer.as_asgi()),
 ]
