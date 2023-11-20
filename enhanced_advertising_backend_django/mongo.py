@@ -11,9 +11,10 @@ def put_stat(stat: dict):
     mycol.insert_one(stat)
 
 
-def get_all_stats():
+def get_all_stats(month):
     mycol = mydb["stat"]
-    mydoc = mycol.find().sort('_id', pymongo.DESCENDING)
+    filter = {"month": month}
+    mydoc = mycol.find(filter).sort('_id', pymongo.DESCENDING)
     return mydoc[0]
 
 

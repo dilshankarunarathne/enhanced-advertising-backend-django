@@ -1,8 +1,15 @@
 from enhanced_advertising_backend_django.mongo import get_all_stats, put_stat
+from datetime import datetime
+
+
+def get_month():
+    now = datetime.now()
+    return now.strftime('%B').lower()
 
 
 def populate():
-    statistics = get_all_stats()
+
+    statistics = get_all_stats(get_month())
     print(dict(statistics)['male_4_12'])
 
     return statistics
