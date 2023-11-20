@@ -1,5 +1,6 @@
 import pymongo
 import gridfs
+import base64
 
 client = pymongo.MongoClient("mongodb+srv://cluster-user:WSamCRFjm47IjoNT@cluster0.nwgoyl7.mongodb.net/")
 
@@ -39,6 +40,23 @@ def fetch_image(interest):
         return file.read()
     else:
         return None
+
+
+def fetch_all_images():
+    # fetch 5 random images and their filenames
+    random_files = fs._GridFS__files.aggregate([{'$sample': {'size': 5}}])
+    results = []
+
+    for file in random_files:
+        filename = file['filename']
+        file_data = fs.get(file['_id']).read()
+
+        # Convert the binary data to base64
+        file_data_base64 = base64.b64encode(file_data).decode('utf-8')
+
+        results.append((filename, file_data_base64))
+
+    return results
 
 
 def put_image_path(name, file_path):

@@ -3,7 +3,7 @@ from asgiref.sync import async_to_sync
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-from enhanced_advertising_backend_django.mongo import put_image
+from enhanced_advertising_backend_django.mongo import put_image, fetch_all_images
 from enhanced_advertising_backend_django.stats import populate, populate_with_month, get_month
 
 
@@ -35,3 +35,8 @@ def image_view(request):
         image_id = put_image(filename, image)
 
         return JsonResponse({"image_id": image_id})
+
+    elif request.method == 'GET':
+        # return a list of 5 images in the database
+        ans = fetch_all_images()
+        return JsonResponse(ans, safe=False)
