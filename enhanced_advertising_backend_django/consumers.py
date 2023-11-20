@@ -14,7 +14,7 @@ from enhanced_advertising_backend_django.iengine.recommender import predict_inte
 from channels.generic.http import AsyncHttpConsumer, AsyncConsumer
 import json
 
-from enhanced_advertising_backend_django.mongo import fetch_image
+from enhanced_advertising_backend_django.mongo import fetch_image, fetch_ad_images
 from enhanced_advertising_backend_django.stats import update
 
 
@@ -69,6 +69,31 @@ def check_base64_image(base64_string, output_file):
 
 
 def model_processing(frame):
+    if frame is None:
+        print("image empty")
+
+    # predict age & gender
+    age, gender = classifier.predict_age_and_gender(frame)
+
+    # predict interest
+    recommended_interest = predict_interest(age, gender)
+
+    # get ads
+    ads = fetch_ad_images(age, gender)
+
+    send_ads = []
+    for ad in ads:
+        print("ad encoding... " + ad[0])
+        # addic = {"name": ad[0], "banner": base64.b64encode(ad[1]).decode()}
+        # print(ad[1])
+        addic = {"name": ad[0], "banner": ad[1]}
+
+        send_ads.append(addic)
+
+    return age, gender, recommended_interest, send_ads
+
+
+def model_processing_old(frame):
     if frame is None:
         print("image empty")
 

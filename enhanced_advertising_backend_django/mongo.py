@@ -76,15 +76,43 @@ def put_image(name, file, gender, age):
     return str(image_id)
 
 
-def fetch_ad_images(gender, age):
+def reformat_age(age):
+    # age_ranges = ["(0-2)", "(4-6)", "(8-12)", "(15-20)", "(25-32)", "(38-43)", "(48-53)", "(60-100)"]
+    send_age = ""
+    if age == "(0-2)":
+        send_age = "4-14"
+    elif age == "(4-6)":
+        send_age = "4-14"
+    elif age == "(8-12)":
+        send_age = "4-14"
+    elif age == "(15-20)":
+        send_age = "13-26"
+    elif age == "(25-32)":
+        send_age = "27-40"
+    elif age == "(38-43)":
+        send_age = "27-40"
+    elif age == "(48-53)":
+        send_age = "Above 40"
+    elif age == "(60-100)":
+        send_age = "Above 40"
+
+    return send_age
+
+
+def fetch_ad_images(age_unformatted, gender):
+    print(age_unformatted)
+    age = reformat_age(age_unformatted)
+
     pipeline = [
         {'$match': {'gender': gender, 'age': age}},
         {'$sample': {'size': 3}}
     ]
 
-    random_files = fs._GridFS__files.aggregate(pipeline)
-    results = []
+    print('age: ', age, ' gender: ', gender)
 
+    random_files = fs._GridFS__files.aggregate(pipeline)
+
+    results = []
     for file in random_files:
         filename = file['filename']
         file_data = fs.get(file['_id']).read()
@@ -94,4 +122,5 @@ def fetch_ad_images(gender, age):
 
         results.append((filename, file_data_base64, age))
 
+    print("length ----- ", len(results))
     return results
