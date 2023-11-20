@@ -4,6 +4,10 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 
+def video_stream(request):
+    return JsonResponse({"message": "Video stream placeholder"})
+
+
 @csrf_exempt
 def post_view(request):
     if request.method == 'POST':
@@ -11,9 +15,3 @@ def post_view(request):
         # process data
         # return response
         return JsonResponse({'message': 'Data received'})
-
-
-def video_stream(request):
-    # Your code to handle the video stream goes here.
-    # This is just a placeholder response.
-    return JsonResponse({"message": "Video stream placeholder"})
