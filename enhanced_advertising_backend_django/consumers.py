@@ -14,6 +14,7 @@ from enhanced_advertising_backend_django.iengine.recommender import predict_inte
 from channels.generic.http import AsyncHttpConsumer, AsyncConsumer
 import json
 
+from enhanced_advertising_backend_django.mongo import fetch_image
 from enhanced_advertising_backend_django.stats import update
 
 
@@ -78,6 +79,10 @@ def model_processing(frame):
     recommended_interest = predict_interest(age, gender)
 
     # get ad
-    ad = get_ad_img_url(recommended_interest)
+    # print(recommended_interest)
+    # ad = get_ad_img_url(recommended_interest)
+    ad = fetch_image(recommended_interest)
+    # print(ad)
+    ad_base64 = base64.b64encode(ad).decode()
 
-    return age, gender, recommended_interest, ad
+    return age, gender, recommended_interest, ad_base64

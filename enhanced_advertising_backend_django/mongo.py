@@ -33,6 +33,7 @@ def fetch_img_url(interest):
 
 
 def fetch_image(interest):
+    interest = interest + ".jpg"
     file = fs.find_one({'filename': interest})
     if file:
         return file.read()
@@ -49,7 +50,7 @@ def put_image(name, file_path):
 # put_image("test2", 'D:/Projects/0 WORK/Roota ayiya/enhanced_advertising_backend_django'
 #                    '/enhanced_advertising_backend_django/ad_engine/raw_ads/animals.jpg')
 
-# print(fetch_image("test2"))
+# print(fetch_image("gaming.jpg"))
 
 
 # print(get_all_stats())
