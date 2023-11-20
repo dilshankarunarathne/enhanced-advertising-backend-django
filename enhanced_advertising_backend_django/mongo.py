@@ -42,9 +42,14 @@ def fetch_image(interest):
         return None
 
 
-def fetch_all_images():
+def fetch_all_images(gender):
     # fetch 5 random images and their filenames
-    random_files = fs._GridFS__files.aggregate([{'$sample': {'size': 5}}])
+    pipeline = [
+        {'$match': {'gender': gender}},
+        {'$sample': {'size': 5}}
+    ]
+    print(gender)
+    random_files = fs._GridFS__files.aggregate(pipeline)
     results = []
 
     for file in random_files:
@@ -65,8 +70,8 @@ def put_image_path(name, file_path):
     return str(image_id)
 
 
-def put_image(name, file):
-    image_id = fs.put(file, filename=name)
+def put_image(name, file, gender):
+    image_id = fs.put(file, filename=name, gender=gender)
     return str(image_id)
 
 

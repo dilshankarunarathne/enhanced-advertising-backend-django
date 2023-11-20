@@ -30,13 +30,14 @@ def image_view(request):
     if request.method == "POST":
         image = request.FILES['image']
         name = request.POST['name']
+        gender = request.POST['gender']
 
         filename = name + ".jpg"
-        image_id = put_image(filename, image)
+        image_id = put_image(filename, image, gender)
 
         return JsonResponse({"image_id": image_id})
 
     elif request.method == 'GET':
-        # return a list of 5 images in the database
-        ans = fetch_all_images()
+        gender = request.GET.get('gender', None)
+        ans = fetch_all_images(gender)
         return JsonResponse(ans, safe=False)
