@@ -34,7 +34,7 @@ def fetch_img_url(interest):
 
 def fetch_image(interest):
     interest = interest + ".jpg"
-    file = fs.find_one({'filename': interest})
+    file = fs.find_one({'filename': interest}, sort=[('uploadDate', -1)])
     if file:
         return file.read()
     else:
