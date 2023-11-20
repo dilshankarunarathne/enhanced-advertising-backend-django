@@ -31,9 +31,10 @@ def image_view(request):
         image = request.FILES['image']
         name = request.POST['name']
         gender = request.POST['gender']
+        age = request.POST['age']
 
         filename = name + ".jpg"
-        image_id = put_image(filename, image, gender)
+        image_id = put_image(filename, image, gender, age)
 
         return JsonResponse({"image_id": image_id})
 

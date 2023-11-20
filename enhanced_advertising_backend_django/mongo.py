@@ -45,21 +45,22 @@ def fetch_image(interest):
 def fetch_all_images(gender):
     # fetch 5 random images and their filenames
     pipeline = [
-        {'$match': {'gender': gender}},
+        {'$match': {'gender': gender, 'age': {'$exists': True, '$ne': None}}},
         {'$sample': {'size': 5}}
     ]
-    print(gender)
+
     random_files = fs._GridFS__files.aggregate(pipeline)
     results = []
 
     for file in random_files:
         filename = file['filename']
+        age = file['age']
         file_data = fs.get(file['_id']).read()
 
         # Convert the binary data to base64
         file_data_base64 = base64.b64encode(file_data).decode('utf-8')
 
-        results.append((filename, file_data_base64))
+        results.append((filename, file_data_base64, age))
 
     return results
 
@@ -70,8 +71,8 @@ def put_image_path(name, file_path):
     return str(image_id)
 
 
-def put_image(name, file, gender):
-    image_id = fs.put(file, filename=name, gender=gender)
+def put_image(name, file, gender, age):
+    image_id = fs.put(file, filename=name, gender=gender, age=age)
     return str(image_id)
 
 
