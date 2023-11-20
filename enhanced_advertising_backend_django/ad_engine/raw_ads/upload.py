@@ -1,35 +1,14 @@
 import pymongo
 import gridfs
 
+import os
+from os import walk
+
 client = pymongo.MongoClient("mongodb+srv://cluster-user:WSamCRFjm47IjoNT@cluster0.nwgoyl7.mongodb.net/")
 
 mydb = client["advertisement"]
 
 fs = gridfs.GridFS(mydb)
-
-
-def put_stat(stat: dict):
-    mycol = mydb["stat"]
-    stat.pop('_id', None)
-    mycol.insert_one(stat)
-
-
-def get_all_stats(month):
-    mycol = mydb["stat"]
-    filter = {"month": month}
-    mydoc = mycol.find(filter).sort('_id', pymongo.DESCENDING)
-    return mydoc[0]
-
-
-def fetch_img_url(interest):
-    mycol = mydb["ad"]
-
-    filter = { "_id": 0, "interest": 1, "banner": 1 }
-    myquery = {"interest": interest}
-
-    mydoc = mycol.find(myquery, filter)
-
-    return mydoc[0]["banner"]
 
 
 def fetch_image(interest):
@@ -52,4 +31,16 @@ def put_image(name, file_path):
 # print(fetch_image("test2"))
 
 
-# print(get_all_stats())
+# need to walk and find all images in raw_ads folder and put them in mongo
+
+
+mypath = 'D:/Projects/0 WORK/Roota ayiya/enhanced_advertising_backend_django/enhanced_advertising_backend_django/ad_engine/raw_ads'
+f = []
+for (dirpath, dirnames, filenames) in walk(mypath):
+    f.extend(filenames)
+    break
+
+for file in f:
+    put_image(file, mypath + '/' + file)
+
+
