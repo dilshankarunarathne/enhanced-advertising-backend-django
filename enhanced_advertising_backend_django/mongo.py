@@ -74,3 +74,24 @@ def put_image_path(name, file_path):
 def put_image(name, file, gender, age):
     image_id = fs.put(file, filename=name, gender=gender, age=age)
     return str(image_id)
+
+
+def fetch_ad_images(gender, age):
+    pipeline = [
+        {'$match': {'gender': gender, 'age': age}},
+        {'$sample': {'size': 5}}
+    ]
+
+    random_files = fs._GridFS__files.aggregate(pipeline)
+    results = []
+
+    for file in random_files:
+        filename = file['filename']
+        file_data = fs.get(file['_id']).read()
+
+        # Convert the binary data to base64
+        file_data_base64 = base64.b64encode(file_data).decode('utf-8')
+
+        results.append((filename, file_data_base64, age))
+
+    return results
