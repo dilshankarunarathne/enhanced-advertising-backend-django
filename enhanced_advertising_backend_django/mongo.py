@@ -74,12 +74,3 @@ def put_image_path(name, file_path):
 def put_image(name, file, gender, age):
     image_id = fs.put(file, filename=name, gender=gender, age=age)
     return str(image_id)
-
-
-# put_image("test2", 'D:/Projects/0 WORK/Roota ayiya/enhanced_advertising_backend_django'
-#                    '/enhanced_advertising_backend_django/ad_engine/raw_ads/animals.jpg')
-
-# print(fetch_image("gaming.jpg"))
-
-
-# print(get_all_stats())
