@@ -79,10 +79,9 @@ def model_processing(frame):
     recommended_interest = predict_interest(age, gender)
 
     # get ad
-    # print(recommended_interest)
     # ad = get_ad_img_url(recommended_interest)
     ad = fetch_image(recommended_interest)
-    # print(ad)
+    
     ad_base64 = base64.b64encode(ad).decode()
 
     return age, gender, recommended_interest, ad_base64
