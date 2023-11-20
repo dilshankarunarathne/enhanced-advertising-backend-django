@@ -79,7 +79,7 @@ def put_image(name, file, gender, age):
 def fetch_ad_images(gender, age):
     pipeline = [
         {'$match': {'gender': gender, 'age': age}},
-        {'$sample': {'size': 5}}
+        {'$sample': {'size': 3}}
     ]
 
     random_files = fs._GridFS__files.aggregate(pipeline)
