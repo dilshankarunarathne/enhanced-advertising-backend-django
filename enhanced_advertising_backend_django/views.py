@@ -33,5 +33,5 @@ def image_view(request):
 
         filename = name + ".jpg"
         image_id = put_image(filename, image)
-        
+
         return JsonResponse({"image_id": image_id})
